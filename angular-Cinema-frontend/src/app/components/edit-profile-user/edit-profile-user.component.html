@@ -1,0 +1,30 @@
+<app-header></app-header>
+
+
+<div class="container-fluid row py-3 m-0 bg-light ">
+    <!-- sidebar section -->
+    <div class="col-lg-3 col-md-3 col-sm-12">
+        <ul class="param-list b-radius">
+    <li class="d-flex flex-row justify-content-center mb-2">
+        <a style="border:none;background-color: white;" class="no-hover">
+            <img [src]="user.avatarUrl" height="150" width="150" alt="">
+        </a>
+    </li>
+    <li>
+        <a routerLink="settings" routerLinkActive="active-tab"><i class="fas fa-user"></i> Données
+            personnelles</a>
+    </li>
+    <li>
+        <a routerLink="password" routerLinkActive="active-tab"><i class="fas fa-lock"></i> Paramétres de
+            sécurité</a>
+    </li>
+</ul>
+    </div>
+    <!-- settings section -->
+    <div class="col-lg-9 col-md-9 col-sm-12 bg-white b-radius p-4">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+<!--  -->

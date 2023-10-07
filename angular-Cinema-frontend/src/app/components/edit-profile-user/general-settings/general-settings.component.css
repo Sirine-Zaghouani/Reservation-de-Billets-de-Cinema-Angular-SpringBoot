@@ -1,0 +1,12 @@
+.label{
+    color: #1D2A4D;
+    margin-bottom: 5px;
+}
+
+.form-control{
+    border: 0px;
+}
+
+.form-select{
+    border: 0px;
+}

@@ -1,0 +1,75 @@
+<app-header></app-header>
+
+<div class="container-fluid bg-grey py-5">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center py-3">
+        <div class="col-lg-6">
+            <div class="bg-white b-radius p-5">
+                <div class="alert alert-danger p-2 mb-1" role="alert" *ngFor="let error of errors">
+                    {{error}}
+                </div>
+                <div class="alert alert-success p-2 mb-1" role="alert" *ngIf="message">
+                    {{message}}
+                </div>
+                <h1 class="mb-4">Se connecter</h1>
+
+                <form>
+                    <div class="row g-3">
+                        <div class="col-12">
+
+                            <input type="text" required class="form-control bg-light border-0" placeholder="Login"
+                                style="height: 55px;" [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}"
+                                #username='ngModel' required>
+                            <!-- validation du username -- si l'utilisateur a touché le champs ou si le champs est invalide faire -->
+                            <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                                class="text-danger mt-1">
+                                <div *ngIf="username.errors?.['required']">
+                                    veuillez saisir votre identifiant
+                                </div>
+
+                            </div>
+                            <!-- fin validation -->
+                        </div>
+                        <div class="col-12">
+                            <input type="password" required class="form-control bg-light border-0"
+                                placeholder="Mot de passe" style="height: 55px;" [(ngModel)]="user.password"
+                                [ngModelOptions]="{standalone: true}" #password='ngModel' required>
+                            <!-- validation du username -->
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                class="text-danger mt-1">
+
+                                <div *ngIf="password.errors?.['required']">
+                                    veuillez remplir votre mot de passe
+                                </div>
+
+                            </div>
+                        <!-- fin validation -->    
+                        </div>
+                        <div class="col-12">
+                            <!-- Si les données sont invalide on ne peut pas cliquer sur le bouton -->
+                            <button class="btn btn-primary w-100 py-3 me-3 d-flex flex-row justify-content-center"
+                            
+                                [disabled]="username.invalid || password.invalid" (click)="login()"><span
+                                    class="me-2">Login</span>
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"
+                                    *ngIf="retrieved == false && clicked === true"></i>
+                            </button>
+                            <br>
+                            <a [routerLink]="['/register']">Vous n'avez pas de compte ? inscrivez-vous maintenant</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>

@@ -1,0 +1,59 @@
+<div class="alert alert-danger p-2 mb-1" role="alert" *ngFor="let error of errors">
+  {{error}}
+</div>
+<div class="alert alert-success p-2 mb-1" role="alert" *ngIf="message">
+  {{message}}
+</div>
+<h1 class="mb-4">Mes données</h1>
+<form>
+  <div class="row g-3">
+    <div class="col-12 col-sm-6">
+      <label class="label" for="">Prénom</label>
+      <input type="text" class="form-control bg-light" style="height: 55px;" [(ngModel)]="user.firstName"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="col-12 col-sm-6">
+      <label class="label" for="">Nom</label>
+      <input type="text" class="form-control bg-light" style="height: 55px;" [(ngModel)]="user.lastName"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="col-12">
+      <label class="label" for="">Identifiant</label>
+      <input type="text" class="form-control bg-light" style="height: 55px;" [(ngModel)]="user.username"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="col-12">
+      <label class="label" for="">Téléphone</label>
+      <input type="text" class="form-control bg-light" style="height: 55px;" [(ngModel)]="user.phone"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="col-12 col-sm-4">
+      <label class="label" for="">Addresse</label>
+      <input type="text" class="form-control bg-light" style="height: 55px;" [(ngModel)]="user.address"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="col-12 col-sm-4">
+      <label for="" class="label">Code postal</label>
+      <input type="text" class="form-control bg-light" style="height: 55px;" [(ngModel)]="user.postalCode"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="col-12 col-sm-4">
+      <label for="" class="label">Gouvernaurat</label>
+      <select class="form-select bg-light" style="height: 55px;" [(ngModel)]="user.gouvernaurat"
+        [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let g of gouvernaurats" [value]="g">{{g}}</option>
+      </select>
+    </div>
+    <div class="col-12 ">
+      <label for="" class="label">Avatar</label>
+      <input type="text" class="form-control bg-light" style="height: 55px;" [(ngModel)]="user.avatarUrl"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div>
+      <button class="btn btn-outline-dark p-3" (click)="update()">Sauvegarder</button>
+    </div>
+  </div>
+</form>

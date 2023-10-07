@@ -1,0 +1,110 @@
+<app-header></app-header>
+
+<div class="container-fluid bg-grey py-3">
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center py-4">
+        <div class="col-lg-7">
+            <div class="bg-white b-radius p-5">
+                <div class="alert alert-danger p-2 mb-1" role="alert" *ngFor="let error of errors">
+                    {{error}}
+                </div>
+                <div class="alert alert-success p-2 mb-1" role="alert" *ngIf="message">
+                    {{message}}
+                </div>
+                <h1 class="mb-4">S'inscrire</h1>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <input type="text" class="form-control bg-light border-0" placeholder="Nom"
+                                style="height: 55px;" [(ngModel)]="user.firstName" required minlength="5"
+                                [ngModelOptions]="{standalone: true}" #firstName='ngModel'>
+
+                            <!-- validation du prénom -->
+                            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                class="text-danger mt-1">
+
+                                <div *ngIf="firstName.errors?.['required']">
+                                    prénom ne faut pas être null
+                                </div>
+                                <div *ngIf="firstName.errors?.['minlength']">
+                                    prénom doit être 4 caractères au minimum.
+                                </div>
+                            </div>
+                            <!-- fin validation -->
+                        </div>
+
+                        <div class="col-12">
+                            <input type="email" class="form-control bg-light border-0" placeholder="Prénom"
+                                style="height: 55px;" [(ngModel)]="user.lastName" #lastName='ngModel' required
+                                minlength="5" [ngModelOptions]="{standalone: true}">
+
+                            <!-- validation du nom -->
+                            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                                class="text-danger mt-1">
+
+                                <div *ngIf="lastName.errors?.['required']">
+                                    prénom ne faut pas être null
+                                </div>
+                                <div *ngIf="lastName.errors?.['minlength']">
+                                    prénom doit être 4 caractères au minimum.
+                                </div>
+                            </div>
+                            <!-- fin validation -->
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control bg-light border-0" placeholder="Identifiant"
+                                style="height: 55px;" [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}"
+                                #username='ngModel' required minlength="5">
+                            <!-- validation du username -->
+                            <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                                class="text-danger mt-1">
+                                <div *ngIf="username.errors?.['required']">
+                                    nom d'utilisateur ne faut pas être null
+                                </div>
+                                <div *ngIf="username.errors?.['minlength']">
+                                    nom d'utilisateur doit être 4 caractères au minimum.
+                                </div>
+                            </div>
+                            <!-- fin validation -->
+                        </div>
+                        <div class="col-12">
+                            <input type="password" class="form-control bg-light border-0" placeholder="Mot de passe"
+                                style="height: 55px;" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}"
+                                #password='ngModel' required minlength="5">
+                            <!-- validation du password -->
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                class="text-danger mt-1">
+                                <div *ngIf="password.errors?.['required']">
+                                    le mot de passe ne faut pas être null
+                                </div>
+                                <div *ngIf="password.errors?.['minlength']">
+                                    le mot de passe doit être 4 caractères au minimum.
+                                </div>
+                            </div>
+                            <!-- fin validation -->
+
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3 me-3 d-flex flex-row justify-content-center"
+                                [disabled]="firstName.invalid || lastName.invalid || username.invalid || password.invalid"
+                                (click)="register()"><span class="me-2">Register</span>
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"
+                                    *ngIf="retrieved == false && clicked == true"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+

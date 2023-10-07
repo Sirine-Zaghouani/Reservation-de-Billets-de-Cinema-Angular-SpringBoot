@@ -1,0 +1,15 @@
+
+  <style>
+    /* Sélecteur pour le texte de placeholder */
+    ::placeholder {
+        color: rgb(255, 255, 255); /* Changer la couleur ici */
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+</style>
+ <div class="pt-2">
+    <input #myInput  type="text" placeholder="Trouvez votre film"
+     class="btn btn-outline-light rounded-pill py-md-3 px-md-3 mx-2" style="width:300px; "
+    (keyup.enter)="doSearch(myInput.value)">
+</div>
+   

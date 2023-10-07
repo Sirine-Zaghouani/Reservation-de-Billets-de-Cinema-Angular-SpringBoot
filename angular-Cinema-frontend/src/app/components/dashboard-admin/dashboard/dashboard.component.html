@@ -1,0 +1,79 @@
+<h1 class="mb-4">Notifications</h1>
+
+<div class="d-flex justify-content-center py-3" *ngIf="loading == true">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="alert bg-light text-center" *ngIf="praticiens.length == 0 && loading == false">
+    Pas de notifications
+</div>
+<div class="a" *ngIf="praticiens.length!=0">
+    <h3 class="mb-4">Nouveaux praticiens à valider</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">RPPS</th>
+                <th scope="col">Date de création</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of praticiens, let i=index">
+                <td>{{i+1}}</td>
+                <td>{{u.firstName}} {{u.lastName}}</td>
+                <td>{{u.phone}}</td>
+                <td>{{u.rpps_code}}</td>
+                <td>{{u.creationDate}}</td>
+                <td>
+                    <button class="btn text-dark p-2 me-1" (click)="validatePraticien(u.id)" data-bs-toggle="modal"
+                        data-bs-target="#validateUser">
+                        <i class="fa-sharp fa-solid fa-check"></i> Valider
+                    </button>
+                    <button type="button" class="btn btn text-danger" data-bs-toggle="modal" data-bs-target="#modal"><i
+                            class="fas fa-trash"></i></button>
+                    <!-- modal -->
+                    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Comfirmer suppression ?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-danger"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"
+                                        (click)="delete(u.id)">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal end -->
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+<!-- modal -->
+<div class="modal fade" id="validateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Médecin validé</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->

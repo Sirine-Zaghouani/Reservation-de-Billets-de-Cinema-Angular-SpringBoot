@@ -1,0 +1,141 @@
+<div class="row ">
+    <div class="col-6 me-auto my-0">
+        <h1>Gestion de film</h1>
+    </div>
+    <div class="col-6 d-flex flex-row py-2 justify-content-end">
+        <button type="button" class="btn btn-outline-dark p-2 px-3" data-bs-toggle="modal"
+            data-bs-target="#editFilm"><i class="fas fa-plus me-2" (click)="clearForm(f)"></i>Ajouter</button>
+    </div>
+</div>
+
+<div class="alert alert-danger p-2 mb-3" role="alert" *ngFor="let error of errors">
+    {{error}}
+</div>
+<div class="alert alert-success p-2 mb-3" role="alert" *ngIf="message">
+    {{message}}
+</div>
+
+<div class="d-flex justify-content-center py-1" *ngIf="loading">
+    <div class="spinner-border" role="status" >
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+
+<div *ngIf="loading == false">
+    <div class="mb-2">
+        <span>({{films.length}} films)</span>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="row">ID</th>
+                <th scope="row">Film</th>
+                <th scope="row">Réalisateur</th>
+                <th scope="row">Description</th>
+                <th scope="row">Date de sortie</th>
+                <th scope="row">Duration</th>
+                <th scope="row">Prix</th>
+                <th scope="row">Catégorie</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let f of films">
+                <td>{{f.id}}</td>
+                <td>{{f.name}}</td>
+                <td>{{f.director}}</td>
+                <td>{{f.description}}</td>
+                <td>{{f.date_created}}</td>
+                <td>{{f.duration}}</td>
+                <td>{{f.price}}</td>
+                <td>{{f.category.categoryName}}</td>
+                <td>
+                    <button type="button" class="btn text-dark me-1" data-bs-toggle="modal"
+                        data-bs-target="#editFilm" (click)="edit(f)"><i class="fas fa-pen"></i></button>
+                    <button type="button" class="btn text-danger" data-bs-toggle="modal" data-bs-target="#deleteComfirm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <!-- modal -->
+                    <div class="modal fade" id="deleteComfirm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Comfirmer suppression ?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Voulez-vous vraiment supprimer cette film ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-danger"
+                                        data-bs-dismiss="modal">Annuler</button>
+                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"
+                                        (click)="delete(f.id)">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal end -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="editFilm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter nouvelle film</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #f='ngForm'>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" [(ngModel)]="film.name" name="name" placeholder="Nom de film" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" [(ngModel)]="film.director" name="director" placeholder="Director" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" [(ngModel)]="film.description" name="description" placeholder="Description" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" class="form-control" [(ngModel)]="film.date_created" name="dateSortie" placeholder="Date de sortie" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="time" class="form-control" [(ngModel)]="film.duration" name="duration" placeholder="Durée" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" class="form-control" [(ngModel)]="film.price" name="price" placeholder="Prix" required>
+                    </div>
+                    
+                    <div class="col mb-3">
+                        <label class="col-form-label">Joindre l'affiche du film :</label>
+                        <input type="file" (change)="onUploadFile($event)" accept="image/*" name="image" [(ngModel)]="film.image" class="form-control" required/>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="col-form-label">Joindre la bande annonce du film :</label>
+                        <input type="file" (change)="onUploadFile($event)" accept="video/*" name="video" [(ngModel)]="film.video" class="form-control" required/>
+                    </div>
+                    <div>
+                        <label for="filmSelector">Sélectionnez une catégorie :</label>
+                        <select id="filmSelector" [(ngModel)]="film.category" class="form-control" required>
+                            <option *ngFor="let c of categories" [value]="c">{{ c.categoryName }}</option>
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"
+                    (click)="save(f)">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->

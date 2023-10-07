@@ -1,0 +1,89 @@
+<!-- Navbar Start -->
+<div class="container-fluid sticky-top  shadow-sm" style="background-color: #0d0000 !important;" >
+  <div class="container" >
+    
+    <nav class="navbar navbar-expand-lg  navbar-light py-3 py-lg-0" tyle="background-color: #0d0000 !important;" >
+      <a routerLink="" class="navbar-brand">
+        <a class="logo me-auto"><img src="assets/img/logo.png" style="height: 55px;" alt=""></a>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+          <!-- user -->
+          <div class="nav-item dropdown" *ngIf="isUserLoggedIn">
+            <a href="#" class="nav-link d-flex align-items-center link-dark nav-link  dropdown-toggle"
+              data-bs-toggle="dropdown">
+              <img [src]="user.avatarUrl" alt="" width="32" height="32"
+                class="rounded-circle me-2">
+              {{authenticatedUser.username}}
+            </a>
+
+            <div class="dropdown-menu m-0">
+              <button (click)="goToEditProfile()" class="dropdown-item my-btn"><i class="fas fa-user me-2"></i> Mon
+                compte</button>
+              <button (click)="goToMesReservations()" class="dropdown-item my-btn" *ngIf="authenticatedUser.role == 'admin' || authenticatedUser.role == 'user' "><i class="fas fa-folder me-2"></i>Mes réservations</button>
+
+              <!-- admin -->
+              <button (click)="goToAdminDashboard()" class="dropdown-item" type="button"
+                *ngIf="authenticatedUser.role== 'admin'">
+                <i class="fa-solid fa-gauge me-2"></i>Dashboard</button>
+              <!-- hr -->
+              <hr class="my-1">
+              <button class="dropdown-item" (click)="logout()" type="button"><i
+                  class="fa-solid fa-right-from-bracket me-2"></i>Déconnexion</button>
+
+            </div>
+          </div>
+
+          <!-- admin -->
+          <!-- <div class="nav-item dropdown" *ngIf="isUserLoggedIn&&authenticatedUser.role == 'admin'">
+            <a href="#" class="d-flex align-items-center link-dark nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              <img [src]="authenticatedUser.avatar? '' : 'assets/img/avatar.png'" alt="" width="32" height="32"
+                class="rounded-circle me-2">
+              {{authenticatedUser.firstName}}
+            </a>
+            <div class="dropdown-menu m-0">
+              <button (click)="goToEditProfile()" class="dropdown-item" type="button"><i class="fas fa-user me-2"></i>
+                Mon
+                compte</button>
+              <button (click)="goToMedicalFolder()" class="dropdown-item" type="button"><i
+                  class="fas fa-folder me-2"></i>Mon
+                dossier medical</button>
+              <button (click)="goToAdminDashboard()" class="dropdown-item" type="button"><i
+                  class="fa-solid fa-gauge me-2"></i>
+                Dashboard</button>
+              <hr class="my-1">
+              <button class="dropdown-item" (click)="logout()" type="button"><i
+                  class="fa-solid fa-right-from-bracket me-2"></i>Déconnexion</button>
+            </div>
+          </div> -->
+
+          <!-- praticien -->
+
+          <!--   <div class="nav-item dropdown" *ngIf="isUserLoggedIn&&authenticatedUser.role== 'praticien'">
+            <a href="#" class="nav-link d-flex align-items-center link-dark dropdown-toggle" data-bs-toggle="dropdown">
+              <img [src]="authenticatedUser.avatar? '' : 'assets/img/avatar.png'" alt="" width="32" height="32"
+                class="rounded-circle me-2">
+              {{authenticatedUser.firstName}}
+            </a>
+            <div class="dropdown-menu m-0">
+              <button (click)="goToEditProfile()" class="dropdown-item my-btn"><i class="fas fa-user me-2"></i> Mon
+                compte</button>
+              <hr class="my-1">
+              <button class="dropdown-item" (click)="logout()" type="button"><i
+                  class="fa-solid fa-right-from-bracket me-2"></i>Déconnexion</button>
+            </div>
+          </div> -->
+
+          <a routerLink="/login" class="nav-item nav-link" *ngIf="!isUserLoggedIn">Login</a>
+          <a routerLink="/register" class="nav-item nav-link" *ngIf="!isUserLoggedIn">Register</a>
+          <!--  <button class="nav-item nav-link my-btn" (click)="logout()" *ngIf="isUserLoggedIn"
+            type="submit">Déconnexion</button> -->
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+<!-- Navbar End -->

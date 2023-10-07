@@ -1,0 +1,80 @@
+<app-header></app-header>
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row g-5">
+          
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                  <!--<video class="img-fluid w-100 rounded mb-5" > <source src="assets/videos/Infinity Pool.mp4" type="video/mp4"></video>-->  
+                  <div class="col-sm-12">
+                    <div class="main-banner owl-carousel">
+                      <div class="item">
+                         <video width="800" height="500" controls >
+                           <!--<source  src="{{film.video}}"  type="video/mp4">--> 
+                           <source  src="assets/videos/MAYDAY.mp4"  type="video/mp4">
+                         </video>
+                      </div>
+                    </div>
+                    <h1 class="mb-4" style="color: #fa4251;">{{film.name}}</h1>
+                    <p>{{film.description}}</p>
+            <ul class="list-unstyled product_info mtb_20">
+              <li>
+                <label><h4>Catégorie :  </h4></label>&nbsp;
+                <span>{{film.category.categoryName}}</span>
+              </li>
+             <li>
+                <label><h4>Prix: </h4></label>&nbsp;
+                <span> {{film.price}} Dt</span>
+              </li>
+               
+            <li>
+              <label><h4>Réalisateur: </h4></label>&nbsp;
+              <span> {{film.director}}</span>
+            </li>
+            <li>
+              <label><h4>Sortie: </h4></label>&nbsp;
+              <span>{{film.date_created| date}}</span>
+            </li>
+            <li>
+              <label><h4>Durée: </h4></label>&nbsp;
+              <span> {{film.duration}}</span>
+            </li>
+          </ul>
+
+                </div>
+                <!-- Blog Detail End -->
+
+                
+            </div>
+
+            <!-- Sidebar Start -->
+            <div class="col-lg-4" style="margin-top: 80px;">
+
+                <!-- Image Start -->
+                <div class="mb-5">
+                    <img src="{{film.image}}" alt="" class="img-fluid rounded">
+                </div>
+                <!-- Image End -->
+                <div class="mx-auto" style="width: 108%; max-width: 600px;"  *ngIf="authenticatedUser != null ">
+                    <div class="input-group">
+                      <select class="form-select border-primary w-25" style="height: 60px; width: 100px;" [(ngModel)]="proj"
+ #projection="ngModel" required>
+                        <option  *ngFor="let p of projections" [value]="p.id">{{p.dateProjection |date}}-{{p.time.time}}</option>
+                        <option selected *ngIf="projections?.length == 0">Aucun projection trouvé.</option>
+                        
+                      </select>
+                        <input type="number" class="form-control border-primary w-25" placeholder="nombre de tickets" style="width:20px" [(ngModel)]="res.nbPlace">
+                        <button class="btn btn-dark border-0 w-25" (click)="saveReservation()">Réserver maintenant</button>
+                    </div>
+                </div>
+                <div class="mx-auto" style="width: 200%; max-width:1000px;"  *ngIf="authenticatedUser == null ">
+                  <div class="input-group">
+                      <button class="btn btn-dark border-0 w-25" routerLink="/login">Réserver maintenant</button>
+                  </div>
+              </div>
+            </div>
+            
+            <!-- Sidebar End -->
+        </div>
+    </div>
+    <!-- Blog End -->
